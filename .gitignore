@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.vscode/
+*.log
+.env
+cccs106_env_bayta

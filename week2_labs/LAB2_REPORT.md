@@ -57,9 +57,10 @@ I learned how to use Git to keep track of changes and save my work to GitHub. I 
 ## Screenshots
 
 ### Git Repository
-- GitHub repository with commit history!![alt text]
-- Local git log showing commits!
-
+- GitHub repository with commit history
+![alt text](<lab2_screenshots/github repository with commit history.png>)
+- Local git log showing commits
+![alt text](<lab2_screenshots/local git log.png>)
 
 ### GUI Applications
 #### hello_flet.py running with all features

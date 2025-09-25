@@ -1,6 +1,8 @@
 # app_logic.py
 import flet as ft
 from database import update_contact_db, delete_contact_db, add_contact_db, get_all_contacts_db
+import re
+
 
 primary_color = "#58835A"
 light_theme = ft.Theme(color_scheme_seed=primary_color, use_material3=True)
@@ -65,30 +67,46 @@ def display_contacts(page, contacts_list_view, db_conn, search_text=""):
     page.update()
 
 
-
-
 def add_contact(page, inputs, contacts_list_view, db_conn):
     name_input, phone_input, email_input = inputs
+    
+    '''
+    Email Pattern, uses regex to make sure there's something before @, 
+    something after @, and a dot with at least 2 letters (like .com)
+    '''
+    EMAIL_PATTERN = re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
 
     has_error = False
+    # name validation
     if not name_input.value.strip():
         name_input.error_text = "Name cannot be empty"
         has_error = True
     else:
         name_input.error_text = None
+        
+    # Phone validation
 
     if not phone_input.value.strip():
-        phone_input.error_text = "Phone cannot be empty"
+        phone_input.error_text = "Phone must be a valid number"
         has_error = True
     else:
-        phone_input.error_text = None
+        if not phone_input.value.isdigit(): 
+            phone_input.error_text = "Invalid phone number"
+            has_error = True
+        else:
+            phone_input.error_text = None
+            
 
     if not email_input.value.strip():
         email_input.error_text = "Email cannot be empty"
         has_error = True
     else:
-        email_input.error_text = None
-
+        if not EMAIL_PATTERN.match(email_input.value):
+            email_input.error_text = "Invalid email address"
+            has_error = True
+        else:
+            email_input.error_text = None
+            
     if has_error:
         page.update()
         return
@@ -132,19 +150,19 @@ def open_edit_dialog(page, contact, db_conn, contacts_list_view):
     edit_name = ft.TextField(
         label="Name",
         value=name,
-        border_color=ft.Colors.GREY_300,
+        border_color=primary_color,
         focused_border_color=primary_color
     )
     edit_phone = ft.TextField(
         label="Phone",
         value=phone,
-        border_color=ft.Colors.GREY_300,
+        border_color=primary_color,
         focused_border_color=primary_color
     )
     edit_email = ft.TextField(
         label="Email",
         value=email,
-        border_color=ft.Colors.GREY_300,
+        border_color=primary_color,
         focused_border_color=primary_color
     )
 

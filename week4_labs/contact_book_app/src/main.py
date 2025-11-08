@@ -141,7 +141,8 @@ def main(page: ft.Page):
                 ft.Column(
                     [
                         ft.Container(height=20),
-                        ft.Text("Enter Contact Details", size=20, weight=ft.FontWeight.BOLD, color=primary_color),
+                        ft.Text("Enter Contact Details", size=20,
+                                weight=ft.FontWeight.BOLD, color=primary_color),
                         name_input,
                         phone_input,
                         email_input,
